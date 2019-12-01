@@ -4,4 +4,4 @@ main:
 
 .PHONY: clean
 clean:
-	rm -f ./main ./*.hi ./*.o
+	rm -f ./main ./*.dyn_hi ./*.dyn_o ./*.hi ./*.o

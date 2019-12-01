@@ -1,4 +1,8 @@
+{-# LANGUAGE TemplateHaskell #-}
+
 module Printf where
 
-pr :: String -> String
-pr s = s
+import Language.Haskell.TH (Q, Exp, stringE)
+
+pr :: String -> Q Exp
+pr s = stringE s
