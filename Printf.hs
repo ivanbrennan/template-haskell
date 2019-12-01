@@ -8,7 +8,7 @@ data Format = D | Literal String
 
 parse :: String -> Format
 parse "%d" = D
-parse s = Literal s
+parse s    = Literal s
 
 gen :: Format -> Q Exp
 gen D           = [| \n -> show n |]
