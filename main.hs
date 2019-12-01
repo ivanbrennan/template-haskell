@@ -1,4 +1,6 @@
 module Main where
 
+import Printf (pr)
+
 main :: IO ()
-main = putStrLn "Hello"
+main = putStrLn (pr "Hello")
