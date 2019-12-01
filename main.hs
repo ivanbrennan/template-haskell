@@ -6,3 +6,4 @@ import Printf (pr)
 
 main :: IO ()
 main = putStrLn $(pr "Hello")
+    >> putStrLn ( $(pr "%d") 123 )
