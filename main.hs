@@ -10,3 +10,7 @@ main =
     putStrLn $(pr "Hello")
     putStrLn ( $(pr "%d") 123 )
     putStrLn ( $(pr "%s") "foo" )
+
+    print $ 1
+    case 1 of
+      n -> print n
