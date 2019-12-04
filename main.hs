@@ -1,8 +1,10 @@
 {-# LANGUAGE TemplateHaskell #-}
+{-# LANGUAGE QuasiQuotes #-}
 
 module Main where
 
 import Printf (pr)
+import Expr (eval, expr)
 
 main :: IO ()
 main =
@@ -11,6 +13,6 @@ main =
     putStrLn ( $(pr "%d") 123 )
     putStrLn ( $(pr "%s") "foo" )
 
-    print $ 1
+    print $ eval [expr|1|]
     case 1 of
       n -> print n
