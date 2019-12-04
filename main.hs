@@ -13,7 +13,7 @@ main =
     putStrLn ( $(pr "%d") 123 )
     putStrLn ( $(pr "%s") "foo" )
 
-    print $ eval [expr|1|]
+    print $ eval [expr|1 + 2|]
     case IntExpr 1 of
       [expr|'int:n|] -> print n
       _ -> pure ()

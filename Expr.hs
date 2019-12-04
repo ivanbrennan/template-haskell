@@ -11,7 +11,12 @@ import Language.Haskell.TH.Quote (QuasiQuoter(QuasiQuoter),
 
 data Expr
   = IntExpr Integer
+  | BinOpExpr BinOp Expr Expr
   | MetaVar String
+  deriving (Show, Data)
+
+data BinOp
+  = AddOp
   deriving (Show, Data)
 
 parseExpr :: String -> Q Expr
@@ -19,11 +24,14 @@ parseExpr s | all isDigit s =
   pure $ IntExpr (read s)
 parseExpr "'int:n" =
   pure $ MetaVar "n"
+parseExpr (x:' ':'+':' ':y:[]) =
+    BinOpExpr <$> pure AddOp <*> parseExpr [x] <*> parseExpr [y]
 parseExpr s =
   fail ("parseExpr no parse: " ++ s)
 
 eval :: Expr -> Integer
 eval (IntExpr n) = n
+eval (BinOpExpr _ x y) = (+) (eval x) (eval y)
 
 expr :: QuasiQuoter
 expr =
