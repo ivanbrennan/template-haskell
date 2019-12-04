@@ -4,7 +4,7 @@
 module Main where
 
 import Printf (pr)
-import Expr (eval, expr)
+import Expr (Expr(IntExpr), eval, expr)
 
 main :: IO ()
 main =
@@ -14,5 +14,6 @@ main =
     putStrLn ( $(pr "%s") "foo" )
 
     print $ eval [expr|1|]
-    case 1 of
-      n -> print n
+    case IntExpr 1 of
+      [expr|1|] -> print 1
+      _ -> pure ()

@@ -5,7 +5,7 @@ module Expr where
 import Data.Data (Data)
 import Language.Haskell.TH (Q, Exp(LitE), Lit(IntegerL), Pat, Dec, Type)
 import Language.Haskell.TH.Quote (QuasiQuoter(QuasiQuoter),
-  quoteExp, quotePat, quoteDec, quoteType, dataToExpQ)
+  quoteExp, quotePat, quoteDec, quoteType, dataToExpQ, dataToPatQ)
 
 data Expr
   = IntExpr Integer
@@ -32,7 +32,8 @@ quoteExprExp s =
   parseExpr s >>= dataToExpQ (const Nothing)
 
 quoteExprPat :: String -> Q Pat
-quoteExprPat _ = fail "quoteExprPat not implemented"
+quoteExprPat s =
+  parseExpr s >>= dataToPatQ (const Nothing)
 
 quoteExprType :: String -> Q Type
 quoteExprType _ = fail "quoteExprType not implemented"
