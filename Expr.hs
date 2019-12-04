@@ -17,6 +17,7 @@ data Expr
 
 data BinOp
   = AddOp
+  | SubOp
   deriving (Show, Data)
 
 parseExpr :: String -> Q Expr
@@ -26,12 +27,17 @@ parseExpr "'int:n" =
   pure $ MetaVar "n"
 parseExpr (x:' ':'+':' ':y:[]) =
     BinOpExpr <$> pure AddOp <*> parseExpr [x] <*> parseExpr [y]
+parseExpr (x:' ':'-':' ':y:[]) =
+    BinOpExpr <$> pure SubOp <*> parseExpr [x] <*> parseExpr [y]
 parseExpr s =
   fail ("parseExpr no parse: " ++ s)
 
 eval :: Expr -> Integer
 eval (IntExpr n) = n
-eval (BinOpExpr _ x y) = (+) (eval x) (eval y)
+eval (BinOpExpr op x y) = (opToFun op) (eval x) (eval y)
+  where
+    opToFun AddOp = (+)
+    opToFun SubOp = (-)
 
 expr :: QuasiQuoter
 expr =
