@@ -15,5 +15,5 @@ main =
 
     print $ eval [expr|1|]
     case IntExpr 1 of
-      [expr|1|] -> print 1
+      [expr|'int:n|] -> print n
       _ -> pure ()
